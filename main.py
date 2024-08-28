@@ -33,35 +33,60 @@ def check(dictionary: dict, condition: dict, parent_key: str = '') -> bool:
 
 if __name__ == '__main__':
     a = {
-        'origin': {
-            'city': 'THR',
-            'airport': 'IKA',
-            'time': '02:00'
+        'names': {
+            'first names': [
+                'Ali',
+                'Ebi'
+            ],
+            'last names': [
+                'Ahmadi',
+                'Zamani'
+            ]
         },
-        'destination': {
-            'city': 'MHD',
-            'airport': 'MHD',
-            'time': '03:00'
-        },
-        'a': {'b': {1: 2}},
-        'c': [1, 2]
+        'ages': [12, 56]
     }
     b = {
-        'or': {
-            'a': {'==': {'b': {1: 2}}},
-            'and': {
+        'and': {
+            'names.first names': {'==': ['Ali', 'Ebi']},
+            'or': {
+                'names.last names': {'==': 'Ahmadi'},
                 'and': {
-                    'origin.city': {'==': 'THR'},
-                    'origin.time': {'==': '02:00'},
-                    'or': {
-                        'destination.city': {'!=': 'MHD'},
-                        'destination.time': {'==': '04:00'}
-                    }
-                },
-                'origin.airport': {'==': 'IKA'}
-            },
-            'c': {'==': [0, 1]}
+                    'ages': {'in': [[12, 56], '989', {45}, 77]},
+                    'ages': {'!=': [12, 56]}
+                }
+            }
         }
     }
+    # a = {
+    #     'origin': {
+    #         'city': 'THR',
+    #         'airport': 'IKA',
+    #         'time': '02:00'
+    #     },
+    #     'destination': {
+    #         'city': 'MHD',
+    #         'airport': 'MHD',
+    #         'time': '03:00'
+    #     },
+    #     'a': {'b': {1: 2}},
+    #     'c': [1, 2]
+    # }
+    # b = {
+    #     'or': {
+    #         'a': {'==': {'b': {1: 2}}},
+    #         'and': {
+    #             'and': {
+    #                 'origin.city': {'==': 'THR'},
+    #                 'origin.time': {'==': '02:00'},
+    #                 'or': {
+    #                     'destination.city': {'!=': 'MHD'},
+    #                     'destination.time': {'==': '04:00'}
+    #                 }
+    #             },
+    #             'origin.airport': {'==': 'IKA'}
+    #         },
+    #         'c': {'==': [0, 1]}
+    #     }
+    # }
 
     print(check(a, b))
